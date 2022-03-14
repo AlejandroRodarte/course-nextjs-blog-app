@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import ReactMarkdown from "react-markdown";
 
 import classes from "../../../../styles/pages/posts/[slug]/post-content.module.css";
 import PostHeader from "./post-header";
@@ -17,7 +18,9 @@ const PostContent = (props) => {
   return (
     <article className={classes.content}>
       <PostHeader post={postHeader} />
-      {post.content}
+      <ReactMarkdown>
+        {post.content}
+      </ReactMarkdown>
     </article>
   );
 };
