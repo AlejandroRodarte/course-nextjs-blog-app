@@ -1,15 +1,32 @@
 import PostContent from "../../../components/pages/posts/[slug]/post-content";
 
-const DUMMY_POST = {
-  slug: "getting-started-with-nextjs",
-  title: "Getting Started with Next.js",
-  image: "getting-started-nextjs.png",
-  date: "2022-02-10",
-  content: "# This is a first post",
+import lib from "../../../lib";
+
+const PostDetailsPage = (props) => {
+  const { post } = props;
+  return <PostContent post={post} />;
 };
 
-const PostDetailsPage = () => {
-  return <PostContent post={DUMMY_POST} />;
+export const getStaticPaths = async () => {
+  const [fileNames, error] = await lib.files.common.getFileNames(
+    "content",
+    "posts"
+  );
+  if (error) return { paths: [], fallback: false };
+  return {
+    paths: fileNames.map((fileName) => {
+      const [slug] = fileName.split(".");
+      return { params: { slug } };
+    }),
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async (context) => {
+  const { slug } = context.params;
+  const [post, error] = await lib.posts.getPostBySlug(slug);
+  if (error) return { notFound: true };
+  return { props: { post }, revalidate: 600 };
 };
 
 export default PostDetailsPage;
