@@ -2,49 +2,25 @@ import { Fragment } from "react";
 
 import Hero from "../components/pages/hero";
 import FeaturedPosts from "../components/pages/featured-posts";
+import lib from "../lib";
 
-const DUMMY_POSTS = [
-  {
-    slug: "getting-started-with-nextjs",
-    title: "Getting Started with Next.js",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "Next.js is the React framework for production - it makes building fullstack React apps and sites a breeze and ships with in-built SSR.",
-    date: "2022-02-10",
-  },
-  {
-    slug: "getting-started-with-nextjs-2",
-    title: "Getting Started with Next.js",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "Next.js is the React framework for production - it makes building fullstack React apps and sites a breeze and ships with in-built SSR.",
-    date: "2022-02-10",
-  },
-  {
-    slug: "getting-started-with-nextjs-3",
-    title: "Getting Started with Next.js",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "Next.js is the React framework for production - it makes building fullstack React apps and sites a breeze and ships with in-built SSR.",
-    date: "2022-02-10",
-  },
-  {
-    slug: "getting-started-with-nextjs-4",
-    title: "Getting Started with Next.js",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "Next.js is the React framework for production - it makes building fullstack React apps and sites a breeze and ships with in-built SSR.",
-    date: "2022-02-10",
-  },
-];
-
-const FeaturedPostsPage = () => {
+const FeaturedPostsPage = (props) => {
+  const { posts } = props;
   return (
     <Fragment>
       <Hero />
-      <FeaturedPosts posts={DUMMY_POSTS} />
+      <FeaturedPosts posts={posts} />
     </Fragment>
   );
+};
+
+export const getStaticProps = async () => {
+  const [posts, error] = await lib.posts.getPosts({
+    filters: [{ type: "is-featured" }],
+    sort: { type: "date", payload: { order: "asc" } },
+  });
+  if (error) return { notFound: true };
+  return { props: { posts } };
 };
 
 export default FeaturedPostsPage;
