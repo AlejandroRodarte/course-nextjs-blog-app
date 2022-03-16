@@ -1,9 +1,11 @@
+import { useCallback } from "react";
+
 import classes from "../../../styles/pages/contact/contact-form.module.css";
 
 import useForm from "../../../hooks/use-form";
 import specs from "../../../lib/forms/specs/client";
 
-const ContactForm = () => {
+const ContactForm = (props) => {
   const { form, metadata, onInputChange } = useForm(
     {
       email: "",
@@ -18,10 +20,18 @@ const ContactForm = () => {
     }
   );
 
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      props.onSubmit(form);
+    },
+    [form]
+  );
+
   return (
     <section className={classes.contact}>
       <h1>How can I help you?</h1>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={onSubmit}>
         <div className={classes.controls}>
           <div className={classes.control}>
             <label htmlFor="email">Your Email</label>
