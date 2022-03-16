@@ -21,28 +21,13 @@ const PostDetailsPage = (props) => {
 
 export const getStaticPaths = async () => {
   const [fileNames, error] = await getFileNames("content", "posts");
-  if (error)
-    return {
-      paths: [
-        {
-          params: {
-            slug: "getting-started-with-nextjs",
-          },
-        },
-        {
-          params: {
-            slug: "mastering-javascript",
-          },
-        },
-      ],
-      fallback: "blocking",
-    };
+  if (error) return { paths: [], fallback: false };
   return {
     paths: fileNames.map((fileName) => {
       const [slug] = fileName.split(".");
-      return { params: { slug } };
+      return { params: { slug }, locale: "en-US" };
     }),
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
