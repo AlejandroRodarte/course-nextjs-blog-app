@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from "react";
+import ReactDOM from "react-dom";
 
 import classes from "../../../styles/ui/notifications/main-notification-banner.module.css";
 
@@ -34,11 +35,12 @@ const MainNotificationBanner = (props) => {
 
   const activeClasses = `${classes.notification} ${statusClasses}`;
 
-  return (
+  return ReactDOM.createPortal(
     <div className={activeClasses} onClick={onClick}>
       <h2>{title}</h2>
       <p>{message}</p>
-    </div>
+    </div>,
+    document.getElementById("notification")
   );
 };
 
