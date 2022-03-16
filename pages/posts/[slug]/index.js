@@ -1,10 +1,21 @@
+import { Fragment } from "react";
+import Head from "next/head";
+
 import PostContent from "../../../components/pages/posts/[slug]/post-content";
 
 import lib from "../../../lib";
 
 const PostDetailsPage = (props) => {
   const { post } = props;
-  return <PostContent post={post} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.excerpt} />
+      </Head>
+      <PostContent post={post} />
+    </Fragment>
+  );
 };
 
 export const getStaticPaths = async () => {

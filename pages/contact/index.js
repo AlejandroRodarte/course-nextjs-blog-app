@@ -1,4 +1,5 @@
-import { useCallback } from "react";
+import { Fragment, useCallback } from "react";
+import Head from "next/head";
 
 import ContactForm from "../../components/pages/contact/contact-form";
 import appLib from "../../lib/app";
@@ -56,7 +57,18 @@ const ContactPage = (props) => {
     [props.onSetNotification]
   );
 
-  return <ContactForm onSubmit={onContactFormSubmit} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>Contact me!</title>
+        <meta
+          name="description"
+          content="Contact me so we can talk about being failures!"
+        />
+      </Head>
+      <ContactForm onSubmit={onContactFormSubmit} />;
+    </Fragment>
+  );
 };
 
 export default connect(ContactPage, undefined, mapDispatchToProps);

@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import Head from "next/head";
 
 import Hero from "../components/pages/hero";
 import FeaturedPosts from "../components/pages/featured-posts";
@@ -8,6 +9,13 @@ const FeaturedPostsPage = (props) => {
   const { posts } = props;
   return (
     <Fragment>
+      <Head>
+        <title>Alejandro's Next.js Blog</title>
+        <meta
+          name="description"
+          content="I am a fucking failure of a person."
+        />
+      </Head>
       <Hero />
       <FeaturedPosts posts={posts} />
     </Fragment>
