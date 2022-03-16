@@ -21,13 +21,13 @@ const PostDetailsPage = (props) => {
 
 export const getStaticPaths = async () => {
   const [fileNames, error] = await getFileNames("content", "posts");
-  if (error) return { paths: [], fallback: false };
+  if (error) return { paths: [], fallback: "blocking" };
   return {
     paths: fileNames.map((fileName) => {
       const [slug] = fileName.split(".");
       return { params: { slug } };
     }),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
