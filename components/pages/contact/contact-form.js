@@ -6,7 +6,7 @@ import useForm from "../../../hooks/use-form";
 import specs from "../../../lib/forms/specs/client";
 
 const ContactForm = (props) => {
-  const { form, metadata, onInputChange } = useForm(
+  const { form, metadata, onInputChange, clearForm } = useForm(
     {
       email: "",
       name: "",
@@ -24,6 +24,7 @@ const ContactForm = (props) => {
     (e) => {
       e.preventDefault();
       props.onSubmit(form);
+      clearForm();
     },
     [form]
   );
