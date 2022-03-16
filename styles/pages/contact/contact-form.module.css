@@ -65,6 +65,16 @@
   border-color: var(--color-primary-500);
 }
 
+.control input:focus,
+.control textarea:focus {
+  outline: none;
+}
+
+input.invalid,
+textarea.invalid {
+  border: 1px solid red;
+}
+
 @media (min-width: 768px) {
   .contact h1 {
     font-size: var(--size-16);
