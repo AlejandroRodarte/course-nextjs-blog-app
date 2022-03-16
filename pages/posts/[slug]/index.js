@@ -1,10 +1,10 @@
 import { Fragment } from "react";
 import Head from "next/head";
 
-import PostContent from "../../components/pages/posts/[slug]/post-content";
+import PostContent from "../../../components/pages/posts/[slug]/post-content";
 
-import getFileNames from "../../lib/files/common/get-file-names";
-import getPostBySlug from "../../lib/posts/get-post-by-slug";
+import getFileNames from "../../../lib/files/common/get-file-names";
+import getPostBySlug from "../../../lib/posts/get-post-by-slug";
 
 const PostDetailsPage = (props) => {
   const { post } = props;

@@ -4,6 +4,7 @@ const nextConfig = {
   env: {
     MONGODB_URL: process.env.MONGODB_URL,
   },
+  trailingSlash: true,
 };
 
 module.exports = nextConfig;
