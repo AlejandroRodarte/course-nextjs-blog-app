@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import classes from "../../../styles/pages/contact/contact-form.module.css";
 
 import useForm from "../../../hooks/use-form";
-import specs from "../../../lib/forms/specs/client";
+import contactFormSpec from "../../../lib/forms/specs/client/contact-form-spec";
 
 const ContactForm = (props) => {
   const { onSubmit } = props;
@@ -14,7 +14,7 @@ const ContactForm = (props) => {
       name: "",
       message: "",
     },
-    specs.contactFormSpec,
+    contactFormSpec,
     {
       email: "email",
       name: "name",

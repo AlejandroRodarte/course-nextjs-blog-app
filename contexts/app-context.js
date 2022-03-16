@@ -1,10 +1,10 @@
-import React from "react";
+import { createContext, useReducer, useContext } from "react";
 
 import store from "../store";
 
 const dispatch = (action) => reducer(store.state, action);
 
-const AppContext = React.createContext({
+const AppContext = createContext({
   store: {
     state: store.state,
     dispatch,
@@ -12,7 +12,7 @@ const AppContext = React.createContext({
 });
 
 const AppContextProvider = (props) => {
-  const [state, dispatch] = React.useReducer(store.reducer, store.state);
+  const [state, dispatch] = useReducer(store.reducer, store.state);
   return (
     <AppContext.Provider value={{ store: { state, dispatch } }}>
       {props.children}
@@ -21,7 +21,7 @@ const AppContextProvider = (props) => {
 };
 
 const useAppContext = () => {
-  return React.useContext(AppContext);
+  return useContext(AppContext);
 };
 
 export { AppContextProvider, useAppContext };

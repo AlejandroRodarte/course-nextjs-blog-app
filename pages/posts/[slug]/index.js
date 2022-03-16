@@ -3,7 +3,8 @@ import Head from "next/head";
 
 import PostContent from "../../../components/pages/posts/[slug]/post-content";
 
-import lib from "../../../lib";
+import getFileNames from "../../../lib/files/common/get-file-names";
+import getPostBySlug from "../../../lib/posts/get-post-by-slug";
 
 const PostDetailsPage = (props) => {
   const { post } = props;
@@ -19,10 +20,7 @@ const PostDetailsPage = (props) => {
 };
 
 export const getStaticPaths = async () => {
-  const [fileNames, error] = await lib.files.common.getFileNames(
-    "content",
-    "posts"
-  );
+  const [fileNames, error] = await getFileNames("content", "posts");
   if (error) return { paths: [], fallback: false };
   return {
     paths: fileNames.map((fileName) => {
@@ -35,7 +33,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const { slug } = context.params;
-  const [post, error] = await lib.posts.getPostBySlug(slug);
+  const [post, error] = await getPostBySlug(slug);
   if (error) return { notFound: true };
   return { props: { post }, revalidate: 600 };
 };

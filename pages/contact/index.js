@@ -2,7 +2,7 @@ import { Fragment, useCallback } from "react";
 import Head from "next/head";
 
 import ContactForm from "../../components/pages/contact/contact-form";
-import appLib from "../../lib/app";
+import addContactMessage from "../../lib/app/contact/add-contact-message";
 import connect from "../../hoc/connect";
 import * as notificationTypes from "../../store/modules/notifications/types";
 
@@ -26,7 +26,7 @@ const ContactPage = (props) => {
       };
 
       onSetNotification(pendingNotification);
-      const [response, error] = await appLib.contact.addContactMessage(form);
+      const [response, error] = await addContactMessage(form);
       if (error) {
         onSetNotification({
           title: "Whoops!",

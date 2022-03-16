@@ -2,8 +2,7 @@ import { Fragment } from "react";
 import Head from "next/head";
 
 import AllPosts from "../../components/pages/posts/all-posts";
-
-import lib from "../../lib";
+import getPosts from "../../lib/posts/get-posts";
 
 const AllPostsPage = (props) => {
   const { posts } = props;
@@ -19,7 +18,7 @@ const AllPostsPage = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const [posts, error] = await lib.posts.getPosts({
+  const [posts, error] = await getPosts({
     sort: { type: "date", payload: { order: "asc" } },
   });
   if (error) return { notFound: true };

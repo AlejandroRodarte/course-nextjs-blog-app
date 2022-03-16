@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import Head from "next/head";
 
 import "../styles/globals.css";
@@ -8,7 +8,7 @@ import { AppContextProvider } from "../contexts/app-context";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <React.Fragment>
+    <Fragment>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </DefaultLayout>
       </AppContextProvider>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

@@ -1,6 +1,9 @@
 import Image from "next/image";
-import { Prism as ReactSyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { PrismLight as ReactSyntaxHighlighter } from "react-syntax-highlighter";
+import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+
+ReactSyntaxHighlighter.registerLanguage("js", js);
 
 const postDetails = (post, classes) => {
   const { slug } = post;

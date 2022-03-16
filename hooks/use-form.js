@@ -1,13 +1,14 @@
 import { useState, useCallback } from "react";
 
-import formsLib from "../lib/forms";
-import commonLib from "../lib/common";
+import generateFromSpec from "../lib/forms/metadata/generate-from-spec";
+import updateInputMetadata from "../lib/forms/metadata/update-input-metadata";
+import updateFormMetadata from "../lib/forms/metadata/update-form-metadata";
+import copyObject from "../lib/common/copy-object";
+import setNestedProperty from "../lib/common/set-nested-property";
 
 const useForm = (initialForm, spec, mapper) => {
   const [form, setForm] = useState(initialForm);
-  const [metadata, setMetadata] = useState(
-    formsLib.metadata.generateFromSpec(spec)
-  );
+  const [metadata, setMetadata] = useState(generateFromSpec(spec));
 
   const onInputChange = useCallback(
     (e) => {
@@ -15,13 +16,13 @@ const useForm = (initialForm, spec, mapper) => {
       const formNodes = mapper[id].split(".");
 
       setForm((prevForm) => {
-        const copiedForm = commonLib.copyObject(prevForm);
-        commonLib.setNestedProperty(copiedForm, formNodes, value);
+        const copiedForm = copyObject(prevForm);
+        setNestedProperty(copiedForm, formNodes, value);
         return copiedForm;
       });
 
       setMetadata((prevMetadata) => {
-        const copiedMetadata = commonLib.copyObject(prevMetadata);
+        const copiedMetadata = copyObject(prevMetadata);
         const metadataNodes = [];
         formNodes.forEach((formNode) => {
           metadataNodes.push("inputs");
@@ -30,20 +31,14 @@ const useForm = (initialForm, spec, mapper) => {
 
         let inputSpec = spec;
         for (const node of formNodes) inputSpec = inputSpec[node];
-        const results = formsLib.metadata.updateInputMetadata(
-          value,
-          inputSpec
-        );
+        const results = updateInputMetadata(value, inputSpec);
 
-        commonLib.setNestedProperty(copiedMetadata, metadataNodes, {
+        setNestedProperty(copiedMetadata, metadataNodes, {
           ...results,
           touched: true,
         });
 
-        const updatedFormMetadata = formsLib.metadata.updateFormMetadata(
-          spec,
-          copiedMetadata
-        );
+        const updatedFormMetadata = updateFormMetadata(spec, copiedMetadata);
 
         return updatedFormMetadata;
       });

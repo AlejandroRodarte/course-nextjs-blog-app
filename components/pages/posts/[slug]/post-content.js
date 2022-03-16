@@ -3,8 +3,7 @@ import ReactMarkdown from "react-markdown";
 
 import classes from "../../../../styles/pages/posts/[slug]/post-content.module.css";
 import PostHeader from "./post-header";
-
-import componentsGenerator from "../../../../config/react-markdown/components-generator";
+import postDetails from "../../../../config/react-markdown/components-generator/post-details";
 
 const PostContent = (props) => {
   const { post } = props;
@@ -18,7 +17,7 @@ const PostContent = (props) => {
   );
 
   const components = useMemo(
-    () => componentsGenerator.postDetails({ slug: post.slug }, classes),
+    () => postDetails({ slug: post.slug }, classes),
     [post.slug]
   );
 

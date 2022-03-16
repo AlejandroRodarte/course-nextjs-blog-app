@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import Hero from "../components/pages/hero";
 import FeaturedPosts from "../components/pages/featured-posts";
-import lib from "../lib";
+import getPosts from "../lib/posts/get-posts";
 
 const FeaturedPostsPage = (props) => {
   const { posts } = props;
@@ -23,7 +23,7 @@ const FeaturedPostsPage = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const [posts, error] = await lib.posts.getPosts({
+  const [posts, error] = await getPosts({
     filters: [{ type: "is-featured" }],
     sort: { type: "date", payload: { order: "asc" } },
   });
