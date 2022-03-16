@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { Prism as ReactSyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const postDetails = (post, classes) => {
   const { slug } = post;
@@ -23,6 +25,17 @@ const postDetails = (post, classes) => {
         return <div className={classes.image}>{firstChildren}</div>;
       }
       return <p>{paragraph.children}</p>;
+    },
+    code: (code) => {
+      const { className, children } = code;
+      const [, language] = className.split("-");
+      return (
+        <ReactSyntaxHighlighter
+          style={atomDark}
+          language={language}
+          children={children}
+        />
+      );
     },
   };
 };
