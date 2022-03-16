@@ -15,19 +15,21 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const DefaultLayout = (props) => {
+  const { notifications, onClearNotification } = props;
+
   const onCloseNotification = useCallback(() => {
-    props.onClearNotification();
-  }, [props.onClearNotification]);
+    onClearNotification();
+  }, [onClearNotification]);
 
   return (
     <Fragment>
       <MainNavigation />
       <main>{props.children}</main>
-      {props.notifications.show && (
+      {notifications.show && (
         <MainNotificationBanner
-          title={props.notifications.notification.title}
-          message={props.notifications.notification.message}
-          status={props.notifications.notification.status}
+          title={notifications.notification.title}
+          message={notifications.notification.message}
+          status={notifications.notification.status}
           onClose={onCloseNotification}
         />
       )}

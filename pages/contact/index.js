@@ -15,6 +15,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const ContactPage = (props) => {
+  const { onSetNotification } = props;
+
   const onContactFormSubmit = useCallback(
     async (form) => {
       const pendingNotification = {
@@ -23,10 +25,10 @@ const ContactPage = (props) => {
         status: "pending",
       };
 
-      props.onSetNotification(pendingNotification);
+      onSetNotification(pendingNotification);
       const [response, error] = await appLib.contact.addContactMessage(form);
       if (error) {
-        props.onSetNotification({
+        onSetNotification({
           title: "Whoops!",
           message: error.message,
           status: "error",
@@ -52,9 +54,9 @@ const ContactPage = (props) => {
           break;
       }
 
-      props.onSetNotification(finishedNotification);
+      onSetNotification(finishedNotification);
     },
-    [props.onSetNotification]
+    [onSetNotification]
   );
 
   return (

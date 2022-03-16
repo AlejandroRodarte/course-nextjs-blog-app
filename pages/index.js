@@ -10,7 +10,7 @@ const FeaturedPostsPage = (props) => {
   return (
     <Fragment>
       <Head>
-        <title>Alejandro's Next.js Blog</title>
+        <title>Alejandro&apos;s Next.js Blog</title>
         <meta
           name="description"
           content="I am a fucking failure of a person."

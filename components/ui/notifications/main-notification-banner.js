@@ -4,20 +4,20 @@ import ReactDOM from "react-dom";
 import classes from "../../../styles/ui/notifications/main-notification-banner.module.css";
 
 const MainNotificationBanner = (props) => {
-  const { title, message, status } = props;
+  const { title, message, status, onClose } = props;
 
   useEffect(() => {
     if (status === "error" || status === "success") {
-      const timeoutId = setTimeout(() => props.onClose(), 3000);
+      const timeoutId = setTimeout(() => onClose(), 3000);
       return () => {
         clearTimeout(timeoutId);
       };
     }
-  }, [status, props.onClose]);
+  }, [status, onClose]);
 
   const onClick = useCallback(() => {
-    if (status === "error" || status === "success") props.onClose();
-  }, [status, props.onClose]);
+    if (status === "error" || status === "success") onClose();
+  }, [status, onClose]);
 
   let statusClasses = "";
 

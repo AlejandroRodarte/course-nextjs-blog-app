@@ -6,6 +6,8 @@ import useForm from "../../../hooks/use-form";
 import specs from "../../../lib/forms/specs/client";
 
 const ContactForm = (props) => {
+  const { onSubmit } = props;
+
   const { form, metadata, onInputChange, clearForm } = useForm(
     {
       email: "",
@@ -20,19 +22,19 @@ const ContactForm = (props) => {
     }
   );
 
-  const onSubmit = useCallback(
+  const onFormSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      props.onSubmit(form);
+      onSubmit(form);
       clearForm();
     },
-    [form]
+    [onSubmit, form, clearForm]
   );
 
   return (
     <section className={classes.contact}>
       <h1>How can I help you?</h1>
-      <form className={classes.form} onSubmit={onSubmit}>
+      <form className={classes.form} onSubmit={onFormSubmit}>
         <div className={classes.controls}>
           <div className={classes.control}>
             <label htmlFor="email">Your Email</label>
