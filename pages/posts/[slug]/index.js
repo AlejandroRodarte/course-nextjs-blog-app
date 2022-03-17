@@ -25,7 +25,7 @@ export const getStaticPaths = async () => {
   return {
     paths: fileNames.map((fileName) => {
       const [slug] = fileName.split(".");
-      return { params: { slug }, locale: "en-US" };
+      return { params: { slug } };
     }),
     fallback: false,
   };
