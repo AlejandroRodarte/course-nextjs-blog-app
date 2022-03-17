@@ -4,10 +4,6 @@ const nextConfig = {
   env: {
     MONGODB_URL: process.env.MONGODB_URL,
   },
-  i18n: {
-    locales: ["en-US"],
-    defaultLocale: "en-US",
-  },
 };
 
 module.exports = nextConfig;

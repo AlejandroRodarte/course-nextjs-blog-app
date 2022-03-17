@@ -25,7 +25,7 @@ export const getStaticPaths = async () => {
   return {
     paths: fileNames.map((fileName) => {
       const [slug] = fileName.split(".");
-      return { params: { slug }, locale: "en-US" };
+      return { params: { slug } };
     }),
     fallback: false,
   };
@@ -35,7 +35,7 @@ export const getStaticProps = async (context) => {
   const { slug } = context.params;
   const [post, error] = await getPostBySlug(slug);
   if (error) return { notFound: true };
-  return { props: { post }, revalidate: 600 };
+  return { props: { post } };
 };
 
 export default PostDetailsPage;
