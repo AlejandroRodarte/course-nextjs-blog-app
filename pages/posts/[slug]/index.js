@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import PostContent from "../../../components/pages/posts/[slug]/post-content";
 
@@ -9,18 +8,14 @@ import getPostBySlug from "../../../lib/posts/get-post-by-slug";
 
 const PostDetailsPage = (props) => {
   const { post } = props;
-  const router = useRouter();
-  const { slug } = router.query;
   return (
-    slug && (
-      <Fragment>
-        <Head>
-          <title>{post.title}</title>
-          <meta name="description" content={post.excerpt} />
-        </Head>
-        <PostContent post={post} />
-      </Fragment>
-    )
+    <Fragment>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.excerpt} />
+      </Head>
+      <PostContent post={post} />
+    </Fragment>
   );
 };
 
